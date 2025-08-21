@@ -1,0 +1,14 @@
+
+# Node / Angular
+node_modules
+dist
+.tmp
+.cache
+coverage
+.env
+.env.*
+.DS_Store
+
+# Editor
+.vscode
+.idea
