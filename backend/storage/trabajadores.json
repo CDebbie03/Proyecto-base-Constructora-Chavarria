@@ -1,1 +1,22 @@
-[]
+[
+  { "id": 1, "nombre": "Juan Pérez", "proyecto": "Proyecto A", "horas": 40 },
+  { "id": 2, "nombre": "María López", "proyecto": "Proyecto A", "horas": 35 },
+  { "id": 3, "nombre": "Carlos García", "proyecto": "Proyecto B", "horas": 42 },
+  { "id": 4, "nombre": "Ana Martínez", "proyecto": "Proyecto C", "horas": 38 },
+  { "id": 5, "nombre": "Luis Rodríguez", "proyecto": "Proyecto B", "horas": 45 },
+  { "id": 6, "nombre": "Laura Fernández", "proyecto": "Proyecto A", "horas": 30 },
+  { "id": 7, "nombre": "José Hernández", "proyecto": "Proyecto D", "horas": 50 },
+  { "id": 8, "nombre": "Sofía Ramírez", "proyecto": "Proyecto C", "horas": 36 },
+  { "id": 9, "nombre": "Andrés Torres", "proyecto": "Proyecto B", "horas": 41 },
+  { "id": 10, "nombre": "Paula Díaz", "proyecto": "Proyecto D", "horas": 39 },
+  { "id": 11, "nombre": "Miguel Castro", "proyecto": "Proyecto A", "horas": 44 },
+  { "id": 12, "nombre": "Gabriela Morales", "proyecto": "Proyecto C", "horas": 37 },
+  { "id": 13, "nombre": "Ricardo Ortiz", "proyecto": "Proyecto D", "horas": 48 },
+  { "id": 14, "nombre": "Camila Flores", "proyecto": "Proyecto B", "horas": 32 },
+  { "id": 15, "nombre": "Fernando Ruiz", "proyecto": "Proyecto A", "horas": 46 },
+  { "id": 16, "nombre": "Daniela Jiménez", "proyecto": "Proyecto C", "horas": 34 },
+  { "id": 17, "nombre": "Raúl Mendoza", "proyecto": "Proyecto B", "horas": 43 },
+  { "id": 18, "nombre": "Patricia Romero", "proyecto": "Proyecto D", "horas": 40 },
+  { "id": 19, "nombre": "Héctor Navarro", "proyecto": "Proyecto A", "horas": 39 },
+  { "id": 20, "nombre": "Valeria Silva", "proyecto": "Proyecto C", "horas": 36 }
+]
