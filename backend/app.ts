@@ -27,9 +27,10 @@ function guardarTrabajadores(trabajadores: ITrabajador[]) {
   fs.writeFileSync(archivoTrabajadores, JSON.stringify(trabajadores, null, 2));
 }
 
-////////////// RESTFULL
 
+////////////////////////////////////////TRABAJADORES///////////////////////////////////////
 
+////////////////////////GET
 app.get('/trabajadores', (req: Request, res: Response) => {
   const lista = leerTrabajadores();
   res.json(lista);
@@ -38,7 +39,7 @@ app.get('/trabajadores', (req: Request, res: Response) => {
 
 
 
-///////////////
+////////////////////////POST
 app.post('/trabajadores', (req: Request, res: Response) => {
   const { id, nombre, proyecto, horas } = req.body as ITrabajador;
 
@@ -63,8 +64,7 @@ app.post('/trabajadores', (req: Request, res: Response) => {
 
 
 
-///////////////////////
-
+////////////////////////DELETE
 app.delete('/trabajadores/:id', (req: Request, res: Response) => {
   const id = Number(req.params.id);
 
@@ -81,8 +81,10 @@ app.delete('/trabajadores/:id', (req: Request, res: Response) => {
   res.json({ message: 'Trabajador eliminado', trabajador: eliminado });
 });
 
-/////////////////////
 
+
+
+////////////////////////PUT
 app.put('/trabajadores/:id', (req: Request, res: Response) => {
   const id = Number(req.params.id);
   const { nombre, proyecto, horas } = req.body as Partial<ITrabajador>;
@@ -104,6 +106,7 @@ app.put('/trabajadores/:id', (req: Request, res: Response) => {
   res.json({ message: 'Trabajador actualizado', trabajador });
 });
 
+////////////////////////////////////////TRABAJADORES///////////////////////////////////////
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
