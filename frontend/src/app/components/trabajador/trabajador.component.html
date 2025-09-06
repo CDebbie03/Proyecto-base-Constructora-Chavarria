@@ -1,0 +1,36 @@
+<link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+<link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
+<div class="tabla-box table-responsive">
+
+  <h2>TRABAJADORES</h2>
+  <button class="btn btn-success"><i class='bxr  bx-plus'  ></i> NUEVO</button>
+
+
+
+  <table class="tabla">
+
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Nombre</th>
+      <th>Horas Trabajadas</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+
+    <tbody>
+      @for (dato of trabajadores; track dato.id){
+        <tr>
+          <td>{{ dato.id }}</td>
+          <td>{{ dato.nombre }}</td>
+          <td>{{ dato.horas_trabajadas }}</td>
+          <td>
+            <button class="btn btn-danger"  (click)="eliminarTrabajador(dato.id)"><i class='bxr  bx-trash'  ></i> </button>
+            <button class="btn btn-warning"><i class='bxr  bx-edit'  ></i> </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+</div>

@@ -1,13 +1,48 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import { TrabajadorService } from './trabajador.service';
+import {TrabajadorModel} from './trabajador.model';
 
 
 @Component({
-  template: `
-  <h1>HOLAAAAAA</h1>
-  <h2>COmo es</h2>
-  <button class="btn btn-danger">Hola</button>
-  `
+  templateUrl: './trabajador.component.html',
 })
-export class TrabajadorComponent{
+export class TrabajadorComponent implements OnInit {
+  trabajadores: TrabajadorModel[] = [];
+  filaSeleccionada: number | null = null;
 
+  constructor(private trabajadorService: TrabajadorService) {}
+
+  ngOnInit(): void {
+    this.cargarTrabajadores();
+  }
+
+  cargarTrabajadores(): void {
+    this.trabajadorService.getTrabajadores().subscribe(data => {
+      console.log(data);
+      this.trabajadores = data;
+    });
+  }
+
+  seleccionarFila(id: number): void {
+    this.filaSeleccionada = id;
+  }
+
+  eliminar(): void {
+    if (this.filaSeleccionada !== null) {
+      this.trabajadorService.deleteTrabajador(this.filaSeleccionada).subscribe(() => {
+        this.cargarTrabajadores();
+        this.filaSeleccionada = null;
+      });
+    }
+  }
+
+  eliminarTrabajador(id:number): void {
+
+    this.trabajadorService.deleteTrabajador(id).subscribe(() => {
+      this.cargarTrabajadores();
+      this.filaSeleccionada = null;
+    });
+
+
+  }
 }

@@ -1,9 +1,12 @@
 import express, { Request, Response } from 'express';
 import sequelize from './Connection/database';
+import cors from 'cors';
 import { Trabajador } from './Models/Trabajadores';
 const app=express();
 app.use(express.json());
-
+app.use(cors({
+  origin: 'http://localhost:4200'
+}));
 
 sequelize.sync()
   .then(() => console.log('Base de datos sincronizada'))
