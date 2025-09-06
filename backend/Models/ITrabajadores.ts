@@ -3,4 +3,5 @@ export interface ITrabajadores {
   nombre: string;
   horas_trabajadas: number;
   proyecto_id: number;
+  comentario:string;
 }

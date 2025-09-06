@@ -7,6 +7,7 @@ export class Trabajador extends Model<ITrabajadores> implements ITrabajadores {
   public nombre!: string;
   public horas_trabajadas!: number;
   public proyecto_id!: number;
+  public comentario!: string;
 }
 
 // Inicialización del modelo
@@ -27,6 +28,10 @@ Trabajador.init(
     },
     proyecto_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    comentario:{
+      type: DataTypes.STRING,
       allowNull: false,
     },
   },

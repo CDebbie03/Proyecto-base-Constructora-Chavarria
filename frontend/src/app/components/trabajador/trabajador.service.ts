@@ -7,9 +7,12 @@ import { TrabajadorModel } from './trabajador.model';
   providedIn: 'root'
 })
 export class TrabajadorService {
+
   private apiUrl = 'http://localhost:3000/trabajadores';
 
   constructor(private http: HttpClient) {}
+
+
 
   getTrabajadores(): Observable<TrabajadorModel[]> {
     return this.http.get<TrabajadorModel[]>(this.apiUrl);
