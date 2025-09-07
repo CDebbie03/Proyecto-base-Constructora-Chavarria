@@ -1,10 +1,11 @@
 import express, { Request, Response } from 'express';
-import sequelize from './Connection/database';
+import sequelize from '../Connection/database';
 import cors from 'cors';
-import { Trabajador } from './Models/Trabajadores';
+import { Trabajador } from '../Models/Trabajadores';
 const app=express();
 app.use(express.json());
-app.use(cors({
+app.use(cors(
+  {
   origin: 'http://localhost:4200'
 }));
 

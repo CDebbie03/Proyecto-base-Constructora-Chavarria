@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TrabajadorService } from './trabajador.service';
-import {TrabajadorModel} from './trabajador.model';
+import {TrabajadorModel, NuevoTrabajador} from './trabajador.model';
 declare var bootstrap: any;
 
 @Component({
@@ -13,10 +13,9 @@ export class TrabajadorComponent implements OnInit {
 
   trabajadores: TrabajadorModel[] = [];
   originalTrabajadores: TrabajadorModel[] = [];
-  filaSeleccionada: number | null = null;
   trabajadorSeleccionado: TrabajadorModel | null = null;
   trabajadorAEditar: TrabajadorModel | null = null;
-  nuevoTrabajador: TrabajadorModel = { id: 0, nombre: '', horas_trabajadas: 0, comentario: '',proyecto_id:0 };
+  nuevoTrabajador: NuevoTrabajador = {  nombre: '', horas_trabajadas: 0, comentario: '',proyecto_id:0 };
   filtroNombre: string = '';
 
 
@@ -57,26 +56,19 @@ export class TrabajadorComponent implements OnInit {
   }
 
   agregarTrabajador(): void {
-
-    this.trabajadorService.addTrabajador(this.nuevoTrabajador).subscribe(() => {
-
-      this.cargarTrabajadores();
-
-      const modalElement = document.getElementById('modalNuevo');
-      const modal = bootstrap.Modal.getInstance(modalElement);
-      if (modal) {
-        modal.hide();
+    this.trabajadorService.addTrabajador(this.nuevoTrabajador).subscribe({
+      next: (res) => {
+        console.log('Trabajador creado:', res);
+        this.cargarTrabajadores();
+        const modalElement = document.getElementById('modalNuevo');
+        const modal = bootstrap.Modal.getInstance(modalElement);
+        if (modal) modal.hide();
+        this.nuevoTrabajador = { nombre: '', horas_trabajadas: 0, comentario: '', proyecto_id: 0 };
+      },
+      error: (err) => {
+        console.error('Error al crear trabajador:', err);
+        alert('Error al crear trabajador: ' + (err.error?.error || 'Error desconocido'));
       }
-
-
-
-      this.nuevoTrabajador = {
-        id: 0,
-        nombre: '',
-        horas_trabajadas: 0,
-        comentario: '',
-        proyecto_id: 0,
-      };
     });
   }
 

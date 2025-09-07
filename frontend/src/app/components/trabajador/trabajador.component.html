@@ -43,7 +43,7 @@
           <td>{{ dato.proyecto_id }}</td>
           <td>{{ dato.comentario }}</td>
           <td>
-<!--            <button class="btn btn-danger"  (click)="eliminarTrabajador(dato.id)"><i class='bxr  bx-trash'  ></i> </button>-->
+
             <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminar" (click)="seleccionarTrabajador(dato)" ><i class='bxr  bx-trash'  ></i> </button>
             <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEditar" (click)="seleccionarTrabajadorParaEditar(dato)"><i class='bxr  bx-edit'  ></i> </button>
           </td>
@@ -86,6 +86,9 @@
         </form>
 
       </div>
+
+
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         <button type="button" class="btn btn-primary" (click)="agregarTrabajador()">Guardar</button>
