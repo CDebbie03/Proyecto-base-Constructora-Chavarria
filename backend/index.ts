@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import sequelize from './Connection/database';
 import cors from 'cors';
 import { Trabajador } from './Models/Trabajadores';
+import { Inventario } from './Models/Inventarios';
 const app=express();
 app.use(express.json());
 app.use(cors({
@@ -73,8 +74,65 @@ app.delete('/trabajadores/:id', async (req: Request, res: Response) => {
 
 // =======================
 
+// =======================
+// RUTAS CRUD INVENTARIO
+// =======================
 
+// Obtener todos los elementos del inventario
+app.get('/inventario', async (req: Request, res: Response) => {
+  try {
+    const inventario = await Inventario.findAll();
+    res.json(inventario);
+  } catch (err) {
+    res.status(500).json({ error: 'Error al obtener el inventario' });
+  }
+});
 
+// Crear un elemento de inventario
+app.post('/inventario', async (req: Request, res: Response) => {
+  try {
+    const nuevoItem = await Inventario.create(req.body);
+    res.status(201).json(nuevoItem);
+  } catch (err) {
+    res.status(500).json({ error: 'Error al crear un elemento de inventario' });
+  }
+});
+
+// Obtener un elemento de inventario por id
+app.get('/inventario/:id', async (req: Request, res: Response) => {
+  try {
+    const item = await Inventario.findByPk(req.params.id);
+    if (!item) return res.status(404).json({ error: 'Elemento de inventario no encontrado' });
+    res.json(item);
+  } catch (err) {
+    res.status(500).json({ error: 'Error al buscar el elemento de inventario' });
+  }
+});
+
+// Actualizar un elemento de inventario
+app.put('/inventario/:id', async (req: Request, res: Response) => {
+  try {
+    const item = await Inventario.findByPk(req.params.id);
+    if (!item) return res.status(404).json({ error: 'Elemento de inventario no encontrado' });
+    await item.update(req.body);
+    res.json(item);
+  } catch (err) {
+    res.status(500).json({ error: 'Error al actualizar el elemento de inventario' });
+  }
+});
+
+// Eliminar un elemento de inventario
+app.delete('/inventario/:id', async (req: Request, res: Response) => {
+  try {
+    const item = await Inventario.findByPk(req.params.id);
+    if (!item) return res.status(404).json({ error: 'Elemento de inventario no encontrado' });
+    await item.destroy();
+    res.json({ message: 'Elemento de inventario eliminado' });
+  } catch (err) {
+    res.status(500).json({ error: 'Error al eliminar el elemento de inventario' });
+  }
+});
+// =======================
 
 
 app.listen(3000,()=>{

@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize';
 const sequelize = new Sequelize(
   'constructora_chavarria', //nombre de base de datos
   'root', //usuario
-  'admin123', // password
+  'root', // password
   {
     host:'localhost',
     port:3306,
