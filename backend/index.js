@@ -1,17 +1,16 @@
 const express =require('express') ;
 const sequelize = require('./Connection/database');
 const cors = require('cors');
-const { Trabajador } = require('./Models/Trabajadores');
-const { Inventario } = require('./Models/Inventarios');
+const Trabajador = require('./Models/Trabajadores');
+const Inventario = require('./Models/Inventarios');
+const Proyecto = require('./Models/Proyectos');
+const Usuario = require('./Models/Usuarios');
+
 const app=express();
 app.use(express.json());
 app.use(cors({
   origin: 'http://localhost:4200'
 }));
-
-sequelize.sync()
-  .then(() => console.log('Base de datos sincronizada'))
-  .catch((err) => console.error('Error sincronizando DB:', err));
 
 // =======================
 // RUTAS CRUD TRABAJADOR
@@ -19,12 +18,12 @@ sequelize.sync()
 
 // Obtener todos los trabajadores
 app.get('/trabajadores', async (req, res) => {
-  try {
-    const trabajadores = await Trabajador.findAll();
-    res.json(trabajadores);
-  } catch (err) {
-    res.status(500).json({ error: 'Error al obtener trabajadores' });
-  }
+    try {
+        const trabajadores = await Trabajador.findAll();
+        res.status(200).json(trabajadores);
+    } catch (err) {
+        res.status(500).json({ error: 'Error al obtener trabajadores', error: err.message});
+    }
 });
 
 // Crear un trabajador
@@ -134,7 +133,17 @@ app.delete('/inventario/:id', async (req, res) => {
 });
 // =======================
 
+sequelize.sync({ force: false})
+    .then(()=> {
+        app.listen(3000,()=>{
+        console.log('Server started on port 3000');
+        })
+    })
+    .catch(error => {
+        console.error('Error al sincronizar la base de datos:', error)
+    })
 
-app.listen(3000,()=>{
-  console.log('Server started on port 3000');
-})
+
+
+
+

@@ -1,19 +1,20 @@
-const { Sequelize } = require('sequelize')
+const {Sequelize}= require('sequelize');
+
 const sequelize = new Sequelize(
-  'constructora_chavarria', //nombre de base de datos
-  'root', //usuario
-  'root', // password
-  {
-    host:'localhost',
-    port:3306,
-    dialect:'mysql'
-
-  }
-
+    'constructora_chavarria',
+    'root',
+    'root',
+    {
+        host:'localhost',
+        port:3306,
+        dialect:'mysql'
+    }
 )
 
 sequelize.authenticate()
-.then(() => console.log('Conexion Establecida'))
-.catch((error) => {console.error('Error de conexion'+error)});
+    .then(() => console.log('Conexion establecida'))
+    .catch((error)=> console.log('Error de conexion' + error))
 
-module.exports=sequelize;
+module.exports=sequelize;  
+
+
