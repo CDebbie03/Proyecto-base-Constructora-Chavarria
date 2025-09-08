@@ -1,4 +1,4 @@
-import { Sequelize } from 'sequelize';
+const { Sequelize } = require('sequelize')
 const sequelize = new Sequelize(
   'constructora_chavarria', //nombre de base de datos
   'root', //usuario
@@ -13,7 +13,7 @@ const sequelize = new Sequelize(
 )
 
 sequelize.authenticate()
-.then(() => {console.log('Conexion Establecida')})
+.then(() => console.log('Conexion Establecida'))
 .catch((error) => {console.error('Error de conexion'+error)});
 
-export default sequelize;
+module.exports=sequelize;

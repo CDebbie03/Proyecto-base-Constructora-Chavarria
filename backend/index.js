@@ -1,8 +1,8 @@
-import express, { Request, Response } from 'express';
-import sequelize from './Connection/database';
-import cors from 'cors';
-import { Trabajador } from './Models/Trabajadores';
-import { Inventario } from './Models/Inventarios';
+const express =require('express') ;
+const sequelize = require('./Connection/database');
+const cors = require('cors');
+const { Trabajador } = require('./Models/Trabajadores');
+const { Inventario } = require('./Models/Inventarios');
 const app=express();
 app.use(express.json());
 app.use(cors({
@@ -18,7 +18,7 @@ sequelize.sync()
 // =======================
 
 // Obtener todos los trabajadores
-app.get('/trabajadores', async (req: Request, res: Response) => {
+app.get('/trabajadores', async (req, res) => {
   try {
     const trabajadores = await Trabajador.findAll();
     res.json(trabajadores);
@@ -28,7 +28,7 @@ app.get('/trabajadores', async (req: Request, res: Response) => {
 });
 
 // Crear un trabajador
-app.post('/trabajadores', async (req: Request, res: Response) => {
+app.post('/trabajadores', async (req, res) => {
   try {
     const trabajador = await Trabajador.create(req.body);
     res.status(201).json(trabajador);
@@ -38,7 +38,7 @@ app.post('/trabajadores', async (req: Request, res: Response) => {
 });
 
 // Obtener un trabajador por id
-app.get('/trabajadores/:id', async (req: Request, res: Response) => {
+app.get('/trabajadores/:id', async (req, res) => {
   try {
     const trabajador = await Trabajador.findByPk(req.params.id);
     if (!trabajador) return res.status(404).json({ error: 'Trabajador no encontrado' });
@@ -49,7 +49,7 @@ app.get('/trabajadores/:id', async (req: Request, res: Response) => {
 });
 
 // Actualizar un trabajador
-app.put('/trabajadores/:id', async (req: Request, res: Response) => {
+app.put('/trabajadores/:id', async (req, res) => {
   try {
     const trabajador = await Trabajador.findByPk(req.params.id);
     if (!trabajador) return res.status(404).json({ error: 'Trabajador no encontrado' });
@@ -61,7 +61,7 @@ app.put('/trabajadores/:id', async (req: Request, res: Response) => {
 });
 
 // Eliminar un trabajador
-app.delete('/trabajadores/:id', async (req: Request, res: Response) => {
+app.delete('/trabajadores/:id', async (req, res) => {
   try {
     const trabajador = await Trabajador.findByPk(req.params.id);
     if (!trabajador) return res.status(404).json({ error: 'Trabajador no encontrado' });
@@ -79,7 +79,7 @@ app.delete('/trabajadores/:id', async (req: Request, res: Response) => {
 // =======================
 
 // Obtener todos los elementos del inventario
-app.get('/inventario', async (req: Request, res: Response) => {
+app.get('/inventario', async (req, res) => {
   try {
     const inventario = await Inventario.findAll();
     res.json(inventario);
@@ -89,7 +89,7 @@ app.get('/inventario', async (req: Request, res: Response) => {
 });
 
 // Crear un elemento de inventario
-app.post('/inventario', async (req: Request, res: Response) => {
+app.post('/inventario', async (req, res) => {
   try {
     const nuevoItem = await Inventario.create(req.body);
     res.status(201).json(nuevoItem);
@@ -99,7 +99,7 @@ app.post('/inventario', async (req: Request, res: Response) => {
 });
 
 // Obtener un elemento de inventario por id
-app.get('/inventario/:id', async (req: Request, res: Response) => {
+app.get('/inventario/:id', async (req, res) => {
   try {
     const item = await Inventario.findByPk(req.params.id);
     if (!item) return res.status(404).json({ error: 'Elemento de inventario no encontrado' });
@@ -110,7 +110,7 @@ app.get('/inventario/:id', async (req: Request, res: Response) => {
 });
 
 // Actualizar un elemento de inventario
-app.put('/inventario/:id', async (req: Request, res: Response) => {
+app.put('/inventario/:id', async (req, res) => {
   try {
     const item = await Inventario.findByPk(req.params.id);
     if (!item) return res.status(404).json({ error: 'Elemento de inventario no encontrado' });
@@ -122,7 +122,7 @@ app.put('/inventario/:id', async (req: Request, res: Response) => {
 });
 
 // Eliminar un elemento de inventario
-app.delete('/inventario/:id', async (req: Request, res: Response) => {
+app.delete('/inventario/:id', async (req, res) => {
   try {
     const item = await Inventario.findByPk(req.params.id);
     if (!item) return res.status(404).json({ error: 'Elemento de inventario no encontrado' });
