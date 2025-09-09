@@ -22,7 +22,7 @@ const Inventario = sequelize.define('inventario',{
 },    
   {
     tableName: 'inventario',
-    timestamps: true,
+    timestamps: false,
   })
 
   module.exports= Inventario;

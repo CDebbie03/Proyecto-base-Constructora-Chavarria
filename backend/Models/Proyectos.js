@@ -25,7 +25,7 @@ const Proyecto = sequelize.define('proyectos', {
     },
 }, {
     tableName: 'proyectos',
-    timestamps: true,
+    timestamps: false,
 });
 
 module.exports = Proyecto;

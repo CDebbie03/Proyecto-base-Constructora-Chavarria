@@ -26,7 +26,7 @@ const Trabajador = sequelize.define('trabajadores',{
 },    
   {
     tableName: 'trabajadores',
-    timestamps: true,
+    timestamps: false,
   })
 
   module.exports= Trabajador;

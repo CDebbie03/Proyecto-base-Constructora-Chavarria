@@ -13,7 +13,7 @@ const sequelize = new Sequelize(
 
 sequelize.authenticate()
     .then(() => console.log('Conexion establecida'))
-    .catch((error)=> console.log('Error de conexion' + error))
+    .catch(error=> console.log('Error de conexion' + error))
 
 module.exports=sequelize;  
 
