@@ -17,6 +17,11 @@ export const routes: Routes = [
   },
   {
     path: '',component:LoginComponent
+  },
+  {
+    path: '',
+    redirectTo: '/inventario',
+    pathMatch: 'full'
   }
 
 ];
