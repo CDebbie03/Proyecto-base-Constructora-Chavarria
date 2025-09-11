@@ -5,12 +5,71 @@ const Trabajador = require('./Models/Trabajadores');
 const Inventario = require('./Models/Inventarios');
 const Proyecto = require('./Models/Proyectos');
 const Usuario = require('./Models/Usuarios');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const app=express();
 app.use(express.json());
 app.use(cors({
   origin: 'http://localhost:4200'
 }));
+
+// =======================
+// RUTAS USUARIO
+// =======================
+
+app.post('/registro', async (req, res)=> {
+  try{
+    const { correo, password } = req.body;
+
+    const usuarioExistente = await Usuario.findOne({where: {correo}});
+    if(usuarioExistente){
+      return res.status(409).json({ mensaje: 'El email ya esta registrado'});
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const contraseniaEncriptada = await bcrypt.hash(password, salt);
+
+    const nuevoUsuario = await Usuario.create({
+      correo,
+      password: contraseniaEncriptada
+    });
+
+    res.status(201).json({ mensaje: 'Usuario registrado exitosamente', data: nuevoUsuario})
+  }catch(error){
+    res.status(500).json({ mensaje: 'Error al registrar el usuario', error: error.message})
+  }
+});
+
+
+app.post('/login', async (req, res) => {
+  try{
+    const { correo, password}= req.body;
+
+    const usuario = await Usuario.findOne({where: {correo}});
+
+    if(!usuario){
+      return res.status(404).json({mensaje: 'Email o contraseña incorrectos'})
+    }
+
+    const contraseniaValida = await bcrypt.compare(password, usuario.password);
+
+    if(!contraseniaValida){
+      return res.status(401).json({mensaje: 'Email o contraseña incorrectos'});
+    }
+
+    const payload={
+      id: usuario.id,
+    }
+
+    const token = jwt.sign(payload, 'TU_SECETO_SUPER_SEGURO', {expiresIn: '1h'});
+
+    res.status(200).json({mensaje: 'Inicio de sesion exitoso', token: token, data: usuario})
+  } catch(error){
+      res.status(500).json({mensaje: 'Error en el inicio de sesion', error: error.message})
+  }
+})
+
 
 // =======================
 // RUTAS CRUD TRABAJADOR
