@@ -7,6 +7,7 @@ const Proyecto = require('./Models/Proyectos');
 const Usuario = require('./Models/Usuarios');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const verificarToken = require('./middleware/auth')
 
 const app=express();
 app.use(express.json());
