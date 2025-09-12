@@ -1,0 +1,27 @@
+    <title>Login - Constructora Chavarría</title>
+    <!-- Iconos -->
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
+
+<div class="logo">
+    <img src="../../../../public/Logo.png" alt="Logo">
+</div>
+
+<div class="login-box">
+    <h2>INICIO DE SESIÓN</h2>
+    <form (ngSubmit)="onSubmit()">
+        <div class="input-box">
+            <i class='bx bx-user'></i>
+            <input type="text" id="usuario" placeholder="USUARIO" [(ngModel)]="credentials.username" name="username" required>
+        </div>
+        <div class="input-box">
+            <i class='bx bx-car-key'></i>
+            <input type="password" id="password" placeholder="CONTRASEÑA" [(ngModel)]="credentials.password" name="password" required>
+        </div>
+        <div class="btns">
+            <button type="button" (click)="crearCuenta()">CREAR CUENTA</button>
+            <button type="submit">INGRESAR</button>
+        </div>
+        <div *ngIf="error" style="color: red;">{{ error }}</div>
+    </form>
+</div>
