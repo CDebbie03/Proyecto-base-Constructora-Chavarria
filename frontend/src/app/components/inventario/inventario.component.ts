@@ -2,15 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InventarioService } from './inventario.service';
 import { InventarioModel } from './inventario.model';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 declare var bootstrap: any;
 
 @Component({
   templateUrl: './inventario.component.html',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, NgxPaginationModule],
 })
 export class InventarioComponent implements OnInit {
+
+  page: number = 1;
+  itemsPerPage: number = 17;
 
   inventario: InventarioModel[] = [];
   originalInventario: InventarioModel[] = [];

@@ -35,7 +35,7 @@
     </thead>
 
     <tbody>
-      @for (dato of trabajadores; track dato.id){
+      @for (dato of trabajadores | paginate: {itemsPerPage: itemsPerPage, currentPage: page }; track dato.id){
         <tr>
           <td>{{ dato.id }}</td>
           <td>{{ dato.nombre }}</td>
@@ -51,7 +51,7 @@
       }
     </tbody>
   </table>
-
+  <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
 </div>
 
 

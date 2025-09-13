@@ -30,7 +30,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (item of inventario; track item.id){
+      @for (item of inventario | paginate: { itemsPerPage: itemsPerPage, currentPage: page}; track item.id){
         <tr>
           <td>{{ item.id }}</td>
           <td>{{ item.herramienta }}</td>
@@ -48,6 +48,7 @@
       }
     </tbody>
   </table>
+  <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
 </div>
 
 <!-- Modal Nuevo -->
