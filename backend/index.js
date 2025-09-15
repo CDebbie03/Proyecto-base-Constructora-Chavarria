@@ -44,32 +44,37 @@ app.post('/registro', async (req, res)=> {
 
 
 app.post('/login', async (req, res) => {
-  try{
-    const { correo, password}= req.body;
+  try {
+    const { correo, password } = req.body;
 
-    const usuario = await Usuario.findOne({where: {correo}});
+    // ⬅️ Añade esta validación al inicio
+    if (!correo || !password) {
+      return res.status(400).json({ mensaje: 'Por favor, ingresa el correo y la contraseña.' });
+    }
 
-    if(!usuario){
-      return res.status(404).json({mensaje: 'Email o contraseña incorrectos'})
+    const usuario = await Usuario.findOne({ where: { correo } });
+
+    if (!usuario) {
+      return res.status(404).json({ mensaje: 'Email o contraseña incorrectos' });
     }
 
     const contraseniaValida = await bcrypt.compare(password, usuario.password);
 
-    if(!contraseniaValida){
-      return res.status(401).json({mensaje: 'Email o contraseña incorrectos'});
+    if (!contraseniaValida) {
+      return res.status(401).json({ mensaje: 'Email o contraseña incorrectos' });
     }
 
-    const payload={
+    const payload = {
       id: usuario.id,
-    }
+    };
 
-    const token = jwt.sign(payload, 'TU_SECETO_SUPER_SEGURO', {expiresIn: '1h'});
+    const token = jwt.sign(payload, 'TU_SECETO_SUPER_SEGURO', { expiresIn: '1h' });
 
-    res.status(200).json({mensaje: 'Inicio de sesion exitoso', token: token, data: usuario})
-  } catch(error){
-      res.status(500).json({mensaje: 'Error en el inicio de sesion', error: error.message})
+    res.status(200).json({ mensaje: 'Inicio de sesion exitoso', token: token, data: usuario });
+  } catch (error) {
+    res.status(500).json({ mensaje: 'Error en el inicio de sesion', error: error.message });
   }
-})
+});
 
 
 // =======================
@@ -77,7 +82,7 @@ app.post('/login', async (req, res) => {
 // =======================
 
 // Obtener todos los trabajadores
-app.get('/trabajadores', async (req, res) => {
+app.get('/trabajadores', verificarToken, async (req, res) => {
     try {
         const trabajadores = await Trabajador.findAll();
         res.status(200).json(trabajadores);
@@ -87,7 +92,7 @@ app.get('/trabajadores', async (req, res) => {
 });
 
 // Crear un trabajador
-app.post('/trabajadores', async (req, res) => {
+app.post('/trabajadores', verificarToken,async (req, res) => {
   try {
     const trabajador = await Trabajador.create(req.body);
     res.status(201).json(trabajador);
@@ -97,7 +102,7 @@ app.post('/trabajadores', async (req, res) => {
 });
 
 // Obtener un trabajador por id
-app.get('/trabajadores/:id', async (req, res) => {
+app.get('/trabajadores/:id', verificarToken, async (req, res) => {
   try {
     const trabajador = await Trabajador.findByPk(req.params.id);
     if (!trabajador) return res.status(404).json({ error: 'Trabajador no encontrado' });
@@ -108,7 +113,7 @@ app.get('/trabajadores/:id', async (req, res) => {
 });
 
 // Actualizar un trabajador
-app.put('/trabajadores/:id', async (req, res) => {
+app.put('/trabajadores/:id', verificarToken, async (req, res) => {
   try {
     const trabajador = await Trabajador.findByPk(req.params.id);
     if (!trabajador) return res.status(404).json({ error: 'Trabajador no encontrado' });
@@ -120,7 +125,7 @@ app.put('/trabajadores/:id', async (req, res) => {
 });
 
 // Eliminar un trabajador
-app.delete('/trabajadores/:id', async (req, res) => {
+app.delete('/trabajadores/:id', verificarToken, async (req, res) => {
   try {
     const trabajador = await Trabajador.findByPk(req.params.id);
     if (!trabajador) return res.status(404).json({ error: 'Trabajador no encontrado' });
@@ -138,7 +143,7 @@ app.delete('/trabajadores/:id', async (req, res) => {
 // =======================
 
 // Obtener todos los elementos del inventario
-app.get('/inventario', async (req, res) => {
+app.get('/inventario', verificarToken, async (req, res) => {
   try {
     const inventario = await Inventario.findAll();
     res.json(inventario);
@@ -148,7 +153,7 @@ app.get('/inventario', async (req, res) => {
 });
 
 // Crear un elemento de inventario
-app.post('/inventario', async (req, res) => {
+app.post('/inventario', verificarToken, async (req, res) => {
   try {
     const nuevoItem = await Inventario.create(req.body);
     res.status(201).json(nuevoItem);
@@ -158,7 +163,7 @@ app.post('/inventario', async (req, res) => {
 });
 
 // Obtener un elemento de inventario por id
-app.get('/inventario/:id', async (req, res) => {
+app.get('/inventario/:id', verificarToken, async (req, res) => {
   try {
     const item = await Inventario.findByPk(req.params.id);
     if (!item) return res.status(404).json({ error: 'Elemento de inventario no encontrado' });
@@ -169,7 +174,7 @@ app.get('/inventario/:id', async (req, res) => {
 });
 
 // Actualizar un elemento de inventario
-app.put('/inventario/:id', async (req, res) => {
+app.put('/inventario/:id', verificarToken, async (req, res) => {
   try {
     const item = await Inventario.findByPk(req.params.id);
     if (!item) return res.status(404).json({ error: 'Elemento de inventario no encontrado' });
@@ -181,7 +186,7 @@ app.put('/inventario/:id', async (req, res) => {
 });
 
 // Eliminar un elemento de inventario
-app.delete('/inventario/:id', async (req, res) => {
+app.delete('/inventario/:id', verificarToken, async (req, res) => {
   try {
     const item = await Inventario.findByPk(req.params.id);
     if (!item) return res.status(404).json({ error: 'Elemento de inventario no encontrado' });
