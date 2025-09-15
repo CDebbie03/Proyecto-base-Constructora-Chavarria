@@ -4,6 +4,7 @@ import {PruebaComponent} from './components/prueba/prueba.component';
 import {LoginComponent} from './components/login/login.component';
 import { RegistroComponent } from './components/registro/registro.component'
 import { InventarioComponent } from './components/inventario/inventario.component';
+import { AyudaComponent } from './components/ayuda/ayuda.component';
 
 export const routes: Routes = [
 
@@ -21,6 +22,9 @@ export const routes: Routes = [
   },
   {
     path: 'registro',component:RegistroComponent
+  },
+  {
+    path: 'ayuda', component: AyudaComponent
   },
   {
     path: '',

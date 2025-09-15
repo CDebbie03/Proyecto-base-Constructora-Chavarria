@@ -18,4 +18,8 @@ export class AuthService {
     const token = this.obtenerToken();
     return !!token;
   }
+
+  cerrarSesion(): void{
+    localStorage.removeItem('auth_token')
+  }
 }

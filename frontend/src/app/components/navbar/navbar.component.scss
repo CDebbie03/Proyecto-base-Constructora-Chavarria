@@ -58,3 +58,8 @@
   text-align: center;
   font-size: 1rem;
 }
+.help-box a:hover,
+.help-box .active{
+  background-color: #908f8f;
+  color: #fff;
+}
