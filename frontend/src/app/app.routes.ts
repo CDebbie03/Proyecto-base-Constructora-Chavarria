@@ -1,22 +1,9 @@
-import { Routes } from '@angular/router';
-//import {TrabajadorComponent} from './components/trabajador/trabajador.component';
-//import {PruebaComponent} from './components/prueba/prueba.component';
-//import {LoginComponent} from './components/login/login.component';
-import { ProyectoComponent } from './components/proyectos/proyecto.component';
+import { Routes } from "@angular/router";
+import { ProyectoComponent } from "./components/proyectos/proyecto.component";
+import { Component } from "@angular/core";
 
-export const routes: Routes = [
-
+export const routes: Routes =[
   {
-    //path: 'trabajadores',component: TrabajadorComponent
-  },
-  {
-    //path: 'prueba',component:PruebaComponent,
-  },
-  {
-    //path: '',component:LoginComponent
-  },
-  {
-    path: 'proyectos',component:ProyectoComponent
+    path: 'proyectos', component: ProyectoComponent
   }
-
 ];
