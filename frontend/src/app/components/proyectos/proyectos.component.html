@@ -1,0 +1,151 @@
+<link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+<link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
+
+<div class="tabla-box table-responsive">
+
+  <h2>PROYECTOS</h2>
+  <button class="btn btn-success m-4" data-bs-toggle="modal" data-bs-target="#modalNuevo">
+    <i class='bx bx-plus'></i> NUEVO
+  </button>
+
+
+  <div class="input-group p-4">
+    <span class="input-group-text"><i class='bx bx-search'></i></span>
+    <input type="text" class="form-control" placeholder="Buscar por nombre..." name="filtroNombre">
+  </div>
+
+  <table class="tabla">
+
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nombre</th>
+        <th>Estado</th>
+        <th>descripcion</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (dato of proyectos; track dato.id){
+      <tr>
+        <td>{{ dato.nombre }}</td>
+        <td>{{ dato.estado }}</td>
+        <td>{{ dato.descripcion }}</td>
+        <td>
+          <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminar"
+            (click)="seleccionarProyecto(dato)"><i class='bxr  bx-trash'></i> </button>
+          <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEditar"
+            (click)="seleccionarProyectoParaEditar(dato)"><i class='bxr  bx-edit'></i> </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+
+</div>
+
+
+
+<!-- Modal Nuevo proyecto -->
+<div class="modal fade" id="modalNuevo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar proyecto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form>
+          <div class="form-group">
+            <label for="formNombre">Nombre del proyecto</label>
+            <input type="text" class="form-control" id="formNombre" placeholder="Nombre"
+              [(ngModel)]="nuevoProyecto.nombre" name="nombre">
+          </div>
+          <div class="form-group">
+            <label for="formHoras">Estado</label>
+            <input type="number" class="form-control" id="formEstado" placeholder="estado"
+              [(ngModel)]="nuevoProyecto.estado" name="estado">
+          </div>
+          <div class="form-group">
+            <label for="formProyecto">descripción</label>
+            <input type="number" class="form-control" id="formDescripcion" placeholder="descripcion"
+              [(ngModel)]="nuevoProyecto.descripcion" name="descripcion">
+          </div>
+        </form>
+
+      </div>
+
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="agregarProyecto()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Editar proyecto -->
+<div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar proyecto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+
+      <div class="modal-body">
+        @if (editarProyecto) {
+        <form>
+          <div class="form-group">
+            <label for="editNombre">Nombre</label>
+            <input type="text" class="form-control" id="editNombre" placeholder="Nombre"
+              [(ngModel)]="editarProyecto.nombre" name="nombre">
+          </div>
+          <div class="form-group">
+            <label for="editHoras">Estado</label>
+            <input type="number" class="form-control" id="editProyecto" placeholder="estado"
+              [(ngModel)]="editarProyecto.estado" name="estado">
+          </div>
+          <div class="form-group">
+            <label for="editComentario">descripcion</label>
+            <input type="text" class="form-control" id="editDescripcion" placeholder="descripcion"
+              [(ngModel)]="editarProyecto.descripcion" name="descripcion">
+          </div>
+        </form>
+        }
+      </div>
+
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="actualizarProyecto()">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Eliminar Trabajador -->
+<div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar proyecto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Desea Eliminar al proyecto <strong>{{proyectoSeleccionado?.nombre}}</strong> ? </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="eliminarProyecto()">Confirmar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
