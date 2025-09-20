@@ -12,11 +12,9 @@ export class ProyectoService {
 
   constructor(private http: HttpClient) {}
 
-
-
   getProyectos(): Observable<proyectoModel[]> {
     return this.http.get<proyectoModel[]>(this.apiUrl);
-    // return this.http.get<TrabajadorModel[]>(`${this.apiUrl}?_limit=10`)
+     return this.http.get<proyectoModel[]>(`${this.apiUrl}?_limit=10`)
   }
 
   addProyecto(proyecto: nuevoProyecto): Observable<nuevoProyecto> {

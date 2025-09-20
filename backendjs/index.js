@@ -2,24 +2,23 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const sequelize = require('./Connection/database');
-const proyecto = require('./Models/proyectos');
+const Proyecto = require('./Models/proyectos'); 
 
 app.use(express.json());
 app.use(cors());
-
 
 sequelize.sync()
     .then(() => console.log('Base de datos sincronizada'))
     .catch((err) => console.error('Error sincronizando DB:', err));
 
 // =======================
-// RUTAS CRUD proyecto
+// RUTAS CRUD Proyecto
 // =======================
 
 // Obtener todos los proyectos
 app.get('/proyectos', async (req, res) => {
     try {
-        const proyectos = await proyecto.findAll();
+        const proyectos = await Proyecto.findAll();
         res.json(proyectos);
     } catch (err) {
         res.status(500).json({ error: 'Error al obtener proyectos' });
@@ -31,15 +30,13 @@ app.post('/proyectos', async (req, res) => {
     try {
         console.log('Datos recibidos:', req.body);
 
-        // Solo tomar los campos necesarios
-        const { nombre, estado, descripcion } = req.body;
+        const { id, nombre, estado, descripcion, usuario_id } = req.body;
 
-        // Validación mínima
-        if (nombre == null || estado == null || descripcion == null) {
+        if (!nombre || !estado || !descripcion) {
             return res.status(400).json({ error: 'Todos los campos son requeridos' });
         }
 
-        const proyecto = await proyecto.create({
+        const nuevoProyecto = await Proyecto.create({
             id,
             nombre,
             estado,
@@ -47,7 +44,10 @@ app.post('/proyectos', async (req, res) => {
             usuario_id
         });
 
-        res.status(201).json(proyecto);
+        res.status(201).json({
+            message: 'Proyecto creado exitosamente',
+            data: nuevoProyecto
+        });
     } catch (err) {
         console.error('Error al crear proyecto:', err);
 
@@ -58,40 +58,45 @@ app.post('/proyectos', async (req, res) => {
             });
         }
 
-        res.status(500).json({ error: err.message }); // Mostrar mensaje real
+        res.status(500).json({ error: err.message });
     }
 });
 
 // Obtener un proyecto por id
-app.get('/proyecto/:id', async (req, res) => {
+app.get('/proyectos/:id', async (req, res) => {
     try {
-        const proyecto = await proyecto.findByPk(req.params.id);
-        if (!proyecto) return res.status(404).json({ error: 'proyecto no encontrado' });
+        const proyecto = await Proyecto.findByPk(req.params.id);
+        if (!proyecto) return res.status(404).json({ error: 'Proyecto no encontrado' });
         res.json(proyecto);
     } catch (err) {
         res.status(500).json({ error: 'Error al buscar proyecto' });
     }
 });
 
-// Actualizar un trabajador
-app.put('/proyecto/:id', async (req, res) => {
+// Actualizar un proyecto
+app.put('/proyectos/:id', async (req, res) => {
     try {
-        const proyecto = await proyecto.findByPk(req.params.id);
-        if (!proyecto) return res.status(404).json({ error: 'proyecto no encontrado' });
-        await proyecto.update(req.body);
-        res.json(proyecto);
+        const proyectoEncontrado = await Proyecto.findByPk(req.params.id);
+        if (!proyectoEncontrado) return res.status(404).json({ error: 'Proyecto no encontrado' });
+
+        await proyectoEncontrado.update(req.body);
+        res.json({
+            message: 'Proyecto actualizado exitosamente',
+            data: proyectoEncontrado
+        });
     } catch (err) {
         res.status(500).json({ error: 'Error al actualizar proyecto' });
     }
 });
 
-// Eliminar un trabajador
+// Eliminar un proyecto
 app.delete('/proyectos/:id', async (req, res) => {
     try {
-        const proyecto = await proyecto.findByPk(req.params.id);
-        if (!proyecto) return res.status(404).json({ error: 'proyecto no encontrado' });
-        await proyecto.destroy();
-        res.json({ message: 'proyecto eliminado' });
+        const proyectoEncontrado = await Proyecto.findByPk(req.params.id);
+        if (!proyectoEncontrado) return res.status(404).json({ error: 'Proyecto no encontrado' });
+
+        await proyectoEncontrado.destroy();
+        res.json({ message: 'Proyecto eliminado' });
     } catch (err) {
         res.status(500).json({ error: 'Error al eliminar proyecto' });
     }

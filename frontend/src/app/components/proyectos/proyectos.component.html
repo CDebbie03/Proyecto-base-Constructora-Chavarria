@@ -11,7 +11,8 @@
 
   <div class="input-group p-4">
     <span class="input-group-text"><i class='bx bx-search'></i></span>
-    <input type="text" class="form-control" placeholder="Buscar por nombre..." name="filtroNombre">
+    <input type="text" class="form-control" placeholder="Buscar por nombre de proyecto..." name="filtroProyecto" [(ngModel)]="filtroProyecto"
+    (input)="buscarPorNombre()">
   </div>
 
   <table class="tabla">
@@ -29,6 +30,7 @@
     <tbody>
       @for (dato of proyectos; track dato.id){
       <tr>
+        <td>{{ dato.id}}</td>
         <td>{{ dato.nombre }}</td>
         <td>{{ dato.estado }}</td>
         <td>{{ dato.descripcion }}</td>
@@ -108,7 +110,7 @@
           </div>
           <div class="form-group">
             <label for="editHoras">Estado</label>
-            <input type="number" class="form-control" id="editProyecto" placeholder="estado"
+            <input type="text" class="form-control" id="editProyecto" placeholder="estado"
               [(ngModel)]="editarProyecto.estado" name="estado">
           </div>
           <div class="form-group">
@@ -131,7 +133,7 @@
 </div>
 
 
-<!-- Modal Eliminar Trabajador -->
+<!-- Modal Eliminar proyecto -->
 <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
