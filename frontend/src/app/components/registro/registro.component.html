@@ -1,0 +1,20 @@
+<div class="registro-box">
+  <h2>REGISTRO DE USUARIO</h2>
+  <form (ngSubmit)="onSubmit()">
+    <div class="input-box">
+      <i class='bx bx-envelope'></i>
+      <input type="email" id="correo" placeholder="CORREO" [(ngModel)]="usuario.correo" name="correo" required>
+    </div>
+    <div class="input-box">
+      <i class='bx bx-car-key'></i>
+      <input type="password" id="password" placeholder="CONTRASEÑA" [(ngModel)]="usuario.password" name="password" required>
+    </div>
+    <div class="btns">
+      <button type="button" (click)="irAlLogin()">VOLVER AL LOGIN</button>
+      <button type="submit">REGISTRARSE</button>
+    </div>
+    @if (error) {
+      <div style="color: red;">{{ error }}</div>
+    }
+  </form>
+</div>

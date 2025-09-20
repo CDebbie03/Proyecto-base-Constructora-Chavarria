@@ -3,13 +3,17 @@ import { FormsModule } from '@angular/forms';
 import { TrabajadorService } from './trabajador.service';
 import {TrabajadorModel, NuevoTrabajador} from './trabajador.model';
 declare var bootstrap: any;
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   templateUrl: './trabajador.component.html',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, NgxPaginationModule],
 })
 export class TrabajadorComponent implements OnInit {
+
+  page: number = 1;
+  itemsPerPage: number = 17;
 
   trabajadores: TrabajadorModel[] = [];
   originalTrabajadores: TrabajadorModel[] = [];

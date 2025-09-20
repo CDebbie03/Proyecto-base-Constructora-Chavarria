@@ -1,0 +1,68 @@
+.registro-box {
+  background-color: #574848;
+  padding: 30px;
+  border-radius: 8px;
+  text-align: center;
+  width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  margin: 2rem auto;
+}
+
+h2 {
+  color: #d9d9d9;
+  margin-bottom: 20px;
+  font-size: 2em;
+}
+
+
+.input-box {
+  margin: 35px 0;
+  display: flex;
+  align-items: center;
+  background: #d9d9d9;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.input-box i {
+  margin-right: 10px;
+  color: #1c1919;
+  font-size: 1.2rem;
+}
+
+.input-box input {
+  border: none;
+  background: none;
+  outline: none;
+  font-size: 16px;
+  flex: 1;
+  color: #1c1919;
+  &::placeholder {
+    color: #1c1919;
+  }
+}
+
+.btns {
+  display: flex;
+
+}
+
+button[type="submit"] {
+  background: #d9d9d9;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #1c1919;
+  transition: background 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background: #bfbfbf;
+}
+
+div[style="color: red;"] {
+  margin-top: 1rem;
+  font-weight: bold;
+}

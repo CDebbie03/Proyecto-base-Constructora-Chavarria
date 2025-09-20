@@ -1,0 +1,137 @@
+<link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+<link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
+
+<div class="tabla-box table-responsive min-vh-100">
+
+  <h2>INVENTARIO</h2>
+  <button class="btn btn-success m-4" data-bs-toggle="modal" data-bs-target="#modalNuevoInventario">
+    <i class='bx bx-plus'></i> NUEVO
+  </button>
+
+  <div class="input-group p-4">
+    <span class="input-group-text"><i class='bx bx-search'></i></span>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Buscar por herramienta..."
+      [(ngModel)]="filtroHerramienta"
+      (ngModelChange)="buscarPorHerramienta()"
+    >
+  </div>
+
+  <table class="tabla table-bordered">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Herramienta</th>
+        <th>Estado</th>
+        <th>Proyecto</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of inventario | paginate: { itemsPerPage: itemsPerPage, currentPage: page}; track item.id){
+        <tr>
+          <td>{{ item.id }}</td>
+          <td>{{ item.herramienta }}</td>
+          <td>{{ item.estado }}</td>
+          <td>{{ item.proyecto_id }}</td>
+          <td>
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminarInventario" (click)="seleccionarItem(item)">
+              <i class='bx bx-trash'></i>
+            </button>
+            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEditarInventario" (click)="seleccionarItemParaEditar(item)">
+              <i class='bx bx-edit'></i>
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+</div>
+
+<!-- Modal Nuevo -->
+<div class="modal fade" id="modalNuevoInventario" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title">Agregar Inventario</h5></div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label>Herramienta</label>
+            <input type="text" class="form-control" [(ngModel)]="nuevoItem.herramienta" name="herramienta">
+          </div>
+          <div class="form-group">
+            <label>Estado</label>
+            <select class="form-control" [(ngModel)]="nuevoItem.estado" name="estado">
+              <option value="">Seleccione estado</option>
+              <option value="Disponible">Disponible</option>
+              <option value="Prestada">Prestada</option>
+              <option value="Dañada">Dañada</option>
+            </select>
+            </div>
+
+          <div class="form-group">
+            <label>Proyecto</label>
+            <input type="number" class="form-control" [(ngModel)]="nuevoItem.proyecto_id" name="proyecto_id">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button class="btn btn-primary" (click)="agregarItem()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Editar -->
+<div class="modal fade" id="modalEditarInventario" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title">Editar Inventario</h5></div>
+      <div class="modal-body">
+        @if(itemAEditar){
+          <form>
+            <div class="form-group">
+              <label>Herramienta</label>
+              <input type="text" class="form-control" [(ngModel)]="itemAEditar.herramienta" name="herramienta">
+            </div>
+            <div class="form-group">
+              <label>Estado</label>
+              <select class="form-control" [(ngModel)]="itemAEditar.estado" name="estado">
+                <option value="">Seleccione estado</option>
+                <option value="Disponible">Disponible</option>
+                <option value="Prestada">Prestada</option>
+                <option value="Dañada">Dañada</option>
+              </select>
+          </div>
+
+          </form>
+        }
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button class="btn btn-primary" (click)="actualizarItem()">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Eliminar -->
+<div class="modal fade" id="modalEliminarInventario" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title">Eliminar Inventario</h5></div>
+      <div class="modal-body">
+        <p>Desea eliminar la herramienta <strong>{{itemSeleccionado?.herramienta}}</strong>?</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" (click)="eliminarItem()">Confirmar</button>
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+

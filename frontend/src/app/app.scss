@@ -1,0 +1,9 @@
+.main-layout {
+  display: flex;
+  height: 100vh;
+}
+
+.content-view {
+  flex-grow: 1;
+  padding: 20px;
+}

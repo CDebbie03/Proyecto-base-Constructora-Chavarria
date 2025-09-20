@@ -1,7 +1,7 @@
 <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
 <link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
 
-<div class="tabla-box table-responsive">
+<div class="tabla-box table-responsive min-vh-100">
 
   <h2>TRABAJADORES</h2>
   <button class="btn btn-success m-4" data-bs-toggle="modal" data-bs-target="#modalNuevo">
@@ -21,7 +21,7 @@
     >
   </div>
 
-  <table class="tabla">
+  <table class="tabla table-bordered">
 
     <thead>
     <tr>
@@ -35,7 +35,7 @@
     </thead>
 
     <tbody>
-      @for (dato of trabajadores; track dato.id){
+      @for (dato of trabajadores | paginate: {itemsPerPage: itemsPerPage, currentPage: page }; track dato.id){
         <tr>
           <td>{{ dato.id }}</td>
           <td>{{ dato.nombre }}</td>
@@ -51,7 +51,7 @@
       }
     </tbody>
   </table>
-
+  <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
 </div>
 
 
@@ -150,7 +150,7 @@
         <p>Desea Eliminar al Trabajador <strong>{{trabajadorSeleccionado?.nombre}}</strong> ? </p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="eliminarTrabajador()" >Confirmar</button>
+        <button type="button" class="btn btn-danger" (click)="eliminarTrabajador()" >Confirmar</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
       </div>
     </div>
