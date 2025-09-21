@@ -3,7 +3,7 @@ const {Sequelize}= require('sequelize');
 const sequelize = new Sequelize(
     'constructora_chavarria',
     'root',
-    'root',
+    'admin123',
     {
         host:'localhost',
         port:3306,
@@ -15,6 +15,6 @@ sequelize.authenticate()
     .then(() => console.log('Conexion establecida'))
     .catch(error=> console.log('Error de conexion' + error))
 
-module.exports=sequelize;  
+module.exports=sequelize;
 
 
