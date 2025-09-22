@@ -19,7 +19,9 @@ export class ProyectoComponent implements OnInit {
   originalProyectos: ProyectoModel[] = [];
   proyectoSeleccionado: ProyectoModel | null = null;
   proyectoAEditar: ProyectoModel | null = null;
-  nuevoProyecto: NuevoProyecto = { nombre: '', estado: '', descripcion: '', usuario_id: 0, comentario: '' };
+
+  nuevoProyecto: NuevoProyecto = { nombre: '', estado: '', descripcion: '', comentario: '' };
+
   filtroNombre: string = '';
 
   constructor(private proyectoService: ProyectoService) { }
@@ -56,7 +58,8 @@ export class ProyectoComponent implements OnInit {
         const modalElement = document.getElementById('modalNuevo');
         const modal = bootstrap.Modal.getInstance(modalElement);
         if (modal) modal.hide();
-        this.nuevoProyecto = { nombre: '', estado: '', descripcion: '', usuario_id: 0, comentario: '' };
+        // ⬅️ Se eliminó usuario_id de la inicialización
+        this.nuevoProyecto = { nombre: '', estado: '', descripcion: '', comentario: '' };
       }
     });
   }
