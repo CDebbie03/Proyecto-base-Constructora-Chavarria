@@ -6,6 +6,7 @@ import { RegistroComponent } from './components/registro/registro.component'
 import { InventarioComponent } from './components/inventario/inventario.component';
 import { AyudaComponent } from './components/ayuda/ayuda.component';
 import { ProyectoComponent} from './components/proyecto/proyecto.component';
+import { Inicio } from './components/inicio/inicio';
 
 export const routes: Routes = [
 
@@ -31,8 +32,11 @@ export const routes: Routes = [
     path:'proyectos',component:ProyectoComponent
   },
   {
+    path: 'inicio', component: Inicio
+  },
+  {
     path: '',
-    redirectTo: '/',
+    redirectTo: '/inicio',
     pathMatch: 'full'
   }
 
