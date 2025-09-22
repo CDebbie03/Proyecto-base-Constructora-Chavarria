@@ -1,0 +1,161 @@
+<link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+<link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
+
+<div class="tabla-box table-responsive min-vh-100">
+
+  <h2>PROYECTOS</h2>
+  <button class="btn btn-success m-4" data-bs-toggle="modal" data-bs-target="#modalNuevo">
+    <i class='bx bx-plus'></i> NUEVO
+  </button>
+
+  <div class="input-group p-4">
+    <span class="input-group-text"><i class='bx bx-search'></i></span>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Buscar por nombre..."
+      [(ngModel)]="filtroNombre"
+      (ngModelChange)="buscarPorNombre()"
+      name="filtroNombre"
+    >
+  </div>
+
+  <table class="tabla table-bordered">
+
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Nombre</th>
+      <th>Estado</th>
+      <th>Descripción</th>
+      <th>Comentario</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+
+    <tbody>
+      @for (dato of proyectos | paginate: {itemsPerPage: itemsPerPage, currentPage: page }; track dato.id){
+        <tr>
+          <td>{{ dato.id }}</td>
+          <td>{{ dato.nombre }}</td>
+          <td>{{ dato.estado }}</td>
+          <td>{{ dato.descripcion }}</td>
+          <td>{{ dato.comentario }}</td>
+          <td>
+            <div class="">
+              <button class="btn btn-danger mx-2" data-bs-toggle="modal" data-bs-target="#modalEliminar" (click)="seleccionarProyecto(dato)" >
+                <i class='bxr bx-trash'></i>
+              </button>
+              <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEditar" (click)="seleccionarProyectoParaEditar(dato)">
+                <i class='bxr bx-edit'></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+</div>
+
+
+<!-- Modal Nuevo Proyecto -->
+<div class="modal fade" id="modalNuevo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Agregar Proyecto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+
+        <form>
+          <div class="form-group mb-3">
+            <label>Nombre</label>
+            <input type="text" class="form-control" placeholder="Nombre" [(ngModel)]="nuevoProyecto.nombre" name="nombre">
+          </div>
+          <div class="form-group mb-3">
+            <label>Estado</label>
+            <input type="text" class="form-control" placeholder="Estado" [(ngModel)]="nuevoProyecto.estado" name="estado">
+          </div>
+          <div class="form-group mb-3">
+            <label>Descripción</label>
+            <input type="text" class="form-control" placeholder="Descripción" [(ngModel)]="nuevoProyecto.descripcion" name="descripcion">
+          </div>
+          <div class="form-group mb-3">
+            <label>Usuario ID</label>
+            <input type="number" class="form-control" placeholder="Usuario ID" [(ngModel)]="nuevoProyecto.usuario_id" name="usuario_id">
+          </div>
+          <div class="form-group mb-3">
+            <label>Comentario</label>
+            <input type="text" class="form-control" placeholder="Comentario" [(ngModel)]="nuevoProyecto.comentario" name="comentario">
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="agregarProyecto()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Editar Proyecto -->
+<div class="modal fade" id="modalEditar" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Proyecto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        @if (proyectoAEditar) {
+          <form>
+            <div class="form-group mb-3">
+              <label>Nombre</label>
+              <input type="text" class="form-control" [(ngModel)]="proyectoAEditar.nombre" name="nombre">
+            </div>
+            <div class="form-group mb-3">
+              <label>Estado</label>
+              <input type="text" class="form-control" [(ngModel)]="proyectoAEditar.estado" name="estado">
+            </div>
+            <div class="form-group mb-3">
+              <label>Descripción</label>
+              <input type="text" class="form-control" [(ngModel)]="proyectoAEditar.descripcion" name="descripcion">
+            </div>
+            <div class="form-group mb-3">
+              <label>Comentario</label>
+              <input type="text" class="form-control" [(ngModel)]="proyectoAEditar.comentario" name="comentario">
+            </div>
+          </form>
+        }
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="actualizarProyecto()">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Eliminar Proyecto -->
+<div class="modal fade" id="modalEliminar" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar Proyecto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>Desea eliminar el proyecto <strong>{{proyectoSeleccionado?.nombre}}</strong> ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="eliminarProyecto()">Confirmar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -198,6 +198,72 @@ app.delete('/inventario/:id', verificarToken, async (req, res) => {
 });
 // =======================
 
+
+
+
+// =======================
+// RUTAS CRUD PROYECTO
+// =======================
+
+
+// Obtener todos los proyectos
+app.get('/proyectos', verificarToken, async (req, res) => {
+  try {
+    const proyectos = await Proyecto.findAll();
+    res.json(proyectos);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Crear un proyecto
+app.post('/proyectos', verificarToken, async (req, res) => {
+  try {
+    const proyecto = await Proyecto.create(req.body);
+    res.status(201).json(proyecto);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Obtener un proyecto por id
+app.get('/proyectos/:id', verificarToken, async (req, res) => {
+  try {
+    const proyecto = await Proyecto.findByPk(req.params.id);
+    if (!proyecto) return res.status(404).json({ error: 'Proyecto no encontrado' });
+    res.json(proyecto);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Actualizar un proyecto
+app.put('/proyectos/:id', verificarToken, async (req, res) => {
+  try {
+    const proyecto = await Proyecto.findByPk(req.params.id);
+    if (!proyecto) return res.status(404).json({ error: 'Proyecto no encontrado' });
+    await proyecto.update(req.body);
+    res.json(proyecto);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Eliminar un proyecto
+app.delete('/proyectos/:id', verificarToken, async (req, res) => {
+  try {
+    const proyecto = await Proyecto.findByPk(req.params.id);
+    if (!proyecto) return res.status(404).json({ error: 'Proyecto no encontrado' });
+    await proyecto.destroy();
+    res.json({ message: 'Proyecto eliminado' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// =======================
+
+
 sequelize.sync({ force: false})
     .then(()=> {
         app.listen(3000,()=>{

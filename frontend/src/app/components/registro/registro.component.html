@@ -3,18 +3,36 @@
   <form (ngSubmit)="onSubmit()">
     <div class="input-box">
       <i class='bx bx-envelope'></i>
-      <input type="email" id="correo" placeholder="CORREO" [(ngModel)]="usuario.correo" name="correo" required>
+      <input type="email" id="correo" placeholder="juan@ejemplo.com" [(ngModel)]="usuario.correo" name="correo" required>
     </div>
     <div class="input-box">
       <i class='bx bx-car-key'></i>
-      <input type="password" id="password" placeholder="CONTRASEÑA" [(ngModel)]="usuario.password" name="password" required>
+      <input type="password" id="password" placeholder="******" [(ngModel)]="usuario.password" name="password" required>
     </div>
     <div class="btns">
-      <button type="button" (click)="irAlLogin()">VOLVER AL LOGIN</button>
-      <button type="submit">REGISTRARSE</button>
+      <button type="submit" class="btn btn-primary">REGISTRARSE</button>
+      <button type="button" class="btn btn-secondary" (click)="irAlLogin()">VOLVER AL LOGIN</button>
     </div>
     @if (error) {
       <div style="color: red;">{{ error }}</div>
     }
   </form>
+</div>
+
+<!-- Modal de confirmación -->
+<div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="registroModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header">
+        <h5 class="modal-title" id="registroModalLabel">Registro exitoso</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        Tu cuenta se creó correctamente.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="irAlLogin()" data-bs-dismiss="modal">Ir al Login</button>
+      </div>
+    </div>
+  </div>
 </div>

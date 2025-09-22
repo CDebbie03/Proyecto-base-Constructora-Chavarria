@@ -5,6 +5,7 @@ import {LoginComponent} from './components/login/login.component';
 import { RegistroComponent } from './components/registro/registro.component'
 import { InventarioComponent } from './components/inventario/inventario.component';
 import { AyudaComponent } from './components/ayuda/ayuda.component';
+import { ProyectoComponent} from './components/proyecto/proyecto.component';
 
 export const routes: Routes = [
 
@@ -25,6 +26,9 @@ export const routes: Routes = [
   },
   {
     path: 'ayuda', component: AyudaComponent
+  },
+  {
+    path:'proyectos',component:ProyectoComponent
   },
   {
     path: '',

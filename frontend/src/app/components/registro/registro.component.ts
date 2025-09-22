@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegistroService, Usuario } from './registro.service';
 
+declare var bootstrap: any; // 👈 Necesario para usar el Modal de Bootstrap
+
 @Component({
   selector: 'app-registro',
   standalone: true,
@@ -18,16 +20,21 @@ export class RegistroComponent {
   constructor(
     private registroService: RegistroService,
     private router: Router
-   ) {}
+  ) {}
 
-   onSubmit() {
+  onSubmit() {
     this.registroService.registrar(this.usuario).subscribe({
       next: (response) => {
         console.log('Registro exitoso', response);
-        this.mensajeExito = 'Registro exitoso, Inicia sesión'
+
+        // Mostrar modal
+        const modal = new bootstrap.Modal(document.getElementById('registroModal'));
+        modal.show();
+
+        // Redirigir después de unos segundos
         setTimeout(() => {
           this.router.navigate(['/']);
-        }, 2000)
+        }, 3000);
       },
       error: (err) => {
         if (err.error && err.error.mensaje) {
@@ -43,6 +50,4 @@ export class RegistroComponent {
   irAlLogin(){
     this.router.navigate(['/'])
   }
-
-
 }
