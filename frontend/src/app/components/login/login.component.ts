@@ -23,7 +23,7 @@ export class LoginComponent{
             next: (response) => {
                 const token = response.token;
                 this.authService.guardarToken(token);
-                this.router.navigate(['/trabajadores']);
+                this.router.navigate(['/inicio']);
             },
             error: (err) => {
                 this.error = 'Usuario o contraseña incorrectos';

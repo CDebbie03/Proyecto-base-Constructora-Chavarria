@@ -58,7 +58,6 @@ export class ProyectoComponent implements OnInit {
         const modalElement = document.getElementById('modalNuevo');
         const modal = bootstrap.Modal.getInstance(modalElement);
         if (modal) modal.hide();
-        // ⬅️ Se eliminó usuario_id de la inicialización
         this.nuevoProyecto = { nombre: '', estado: '', descripcion: '', comentario: '' };
       }
     });
