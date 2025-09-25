@@ -3,12 +3,10 @@ export interface ProyectoModel {
   nombre: string;
   estado: string;
   descripcion: string;
-  comentario: string;
 }
 
 export interface NuevoProyecto {
   nombre: string;
   estado: string;
   descripcion: string;
-  comentario: string;
 }

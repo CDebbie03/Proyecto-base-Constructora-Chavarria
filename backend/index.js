@@ -59,7 +59,6 @@ app.post('/login', async (req, res) => {
   try {
     const { correo, password } = req.body;
 
-    // ⬅️ Añade esta validación al inicio
     if (!correo || !password) {
       return res.status(400).json({ mensaje: 'Por favor, ingresa el correo y la contraseña.' });
     }
@@ -95,12 +94,17 @@ app.post('/login', async (req, res) => {
 
 // Obtener todos los trabajadores
 app.get('/trabajadores', verificarToken, async (req, res) => {
-    try {
-        const trabajadores = await Trabajador.findAll();
-        res.status(200).json(trabajadores);
-    } catch (err) {
-        res.status(500).json({ error: 'Error al obtener trabajadores', error: err.message});
-    }
+  try {
+    const trabajadores = await Trabajador.findAll({
+      include: [{
+        model: Proyecto,
+        attributes: ['nombre']
+      }]
+    });
+    res.status(200).json(trabajadores);
+  } catch (err) {
+    res.status(500).json({ error: 'Error al obtener trabajadores', error: err.message });
+  }
 });
 
 // Crear un trabajador

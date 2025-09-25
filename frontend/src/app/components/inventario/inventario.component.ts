@@ -17,7 +17,7 @@ declare var bootstrap: any;
 export class InventarioComponent implements OnInit {
 
   page: number = 1;
-  itemsPerPage: number = 17;
+  itemsPerPage: number = 13;
 
   inventario: InventarioModel[] = [];
   originalInventario: InventarioModel[] = [];

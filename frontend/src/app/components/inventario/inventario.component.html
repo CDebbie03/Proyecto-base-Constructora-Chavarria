@@ -50,7 +50,10 @@
       }
     </tbody>
   </table>
-  <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+  <div class="d-flex justify-content-center mt-4">
+    <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+  </div>
+  
 </div>
 
 <!-- Modal Nuevo -->

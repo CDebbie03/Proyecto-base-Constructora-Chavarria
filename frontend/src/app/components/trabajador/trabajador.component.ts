@@ -15,7 +15,7 @@ declare var bootstrap: any;
 export class TrabajadorComponent implements OnInit {
 
   page: number = 1;
-  itemsPerPage: number = 17;
+  itemsPerPage: number = 13;
 
   trabajadores: TrabajadorModel[] = [];
   originalTrabajadores: TrabajadorModel[] = [];
@@ -33,7 +33,6 @@ export class TrabajadorComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.cargarTrabajadores();
     this.cargarProyectos();
   }
 
@@ -41,6 +40,7 @@ export class TrabajadorComponent implements OnInit {
     this.proyectoService.getProyectos().subscribe(
       proyectos => {
         this.proyectosDisponibles = proyectos;
+        this.cargarTrabajadores();
       },
       error => {
         console.error('Error al cargar proyectos:', error);
@@ -55,9 +55,10 @@ export class TrabajadorComponent implements OnInit {
   cargarTrabajadores(): void {
     this.trabajadorService.getTrabajadores().subscribe(data => {
       this.trabajadores = data.map(trabajador => {
-        const proyecto = this.proyectosDisponibles.find(p => p.id === trabajador.proyecto_id);
+        const proyecto = this.proyectosDisponibles.find(p => p.id === trabajador.proyecto_id)
         return {
           ...trabajador,
+          
           proyecto_nombre: proyecto ? proyecto.nombre : 'Sin Proyecto'
         };
       });
