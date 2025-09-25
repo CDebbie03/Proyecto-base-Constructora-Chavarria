@@ -22,7 +22,7 @@
   <table class="tabla table-bordered">
     <thead>
       <tr>
-        <th>#</th>
+        <th>id</th>
         <th>Herramienta</th>
         <th>Estado</th>
         <th>Proyecto</th>
@@ -35,34 +35,42 @@
           <td>{{ item.id }}</td>
           <td>{{ item.herramienta }}</td>
           <td>{{ item.estado }}</td>
-          <td>{{ item.proyecto_id }}</td>
+          <td>{{ item.proyecto_nombre }}</td>
           <td>
-            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminarInventario" (click)="seleccionarItem(item)">
-              <i class='bx bx-trash'></i>
-            </button>
-            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEditarInventario" (click)="seleccionarItemParaEditar(item)">
-              <i class='bx bx-edit'></i>
-            </button>
+            <div>
+              <button class="btn btn-danger mx-2" data-bs-toggle="modal" data-bs-target="#modalEliminarInventario" (click)="seleccionarItem(item)">
+                <i class='bx bx-trash'></i>
+              </button>
+              <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEditarInventario" (click)="seleccionarItemParaEditar(item)">
+                <i class='bx bx-edit'></i>
+              </button>
+            </div>
           </td>
         </tr>
       }
     </tbody>
   </table>
-  <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+  <div class="d-flex justify-content-center mt-4">
+    <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+  </div>
+  
 </div>
 
 <!-- Modal Nuevo -->
+
 <div class="modal fade" id="modalNuevoInventario" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header"><h5 class="modal-title">Agregar Inventario</h5></div>
+      <div class="modal-header">
+        <h5 class="modal-title">Agregar Inventario</h5>
+      </div>
       <div class="modal-body">
         <form>
-          <div class="form-group">
+          <div class="form-group mb-3">
             <label>Herramienta</label>
             <input type="text" class="form-control" [(ngModel)]="nuevoItem.herramienta" name="herramienta">
           </div>
-          <div class="form-group">
+          <div class="form-group mb-3">
             <label>Estado</label>
             <select class="form-control" [(ngModel)]="nuevoItem.estado" name="estado">
               <option value="">Seleccione estado</option>
@@ -70,11 +78,15 @@
               <option value="Prestada">Prestada</option>
               <option value="Dañada">Dañada</option>
             </select>
-            </div>
-
-          <div class="form-group">
+          </div>
+          <div class="form-group mb-3">
             <label>Proyecto</label>
-            <input type="number" class="form-control" [(ngModel)]="nuevoItem.proyecto_id" name="proyecto_id">
+            <select class="form-control" [(ngModel)]="nuevoItem.proyecto_nombre" name="proyecto_nombre">
+              <option value="">Seleccione un proyecto</option>
+              @for (proyecto of proyectosDisponibles; track proyecto.id) {
+              <option [value]="proyecto.nombre">{{ proyecto.nombre }}</option>
+              }
+            </select>
           </div>
         </form>
       </div>
@@ -90,25 +102,35 @@
 <div class="modal fade" id="modalEditarInventario" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header"><h5 class="modal-title">Editar Inventario</h5></div>
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Inventario</h5>
+      </div>
       <div class="modal-body">
         @if(itemAEditar){
-          <form>
-            <div class="form-group">
-              <label>Herramienta</label>
-              <input type="text" class="form-control" [(ngModel)]="itemAEditar.herramienta" name="herramienta">
-            </div>
-            <div class="form-group">
-              <label>Estado</label>
-              <select class="form-control" [(ngModel)]="itemAEditar.estado" name="estado">
-                <option value="">Seleccione estado</option>
-                <option value="Disponible">Disponible</option>
-                <option value="Prestada">Prestada</option>
-                <option value="Dañada">Dañada</option>
-              </select>
+        <form>
+          <div class="form-group mb-3">
+            <label>Herramienta</label>
+            <input type="text" class="form-control" [(ngModel)]="itemAEditar.herramienta" name="herramienta">
           </div>
-
-          </form>
+          <div class="form-group mb-3">
+            <label>Estado</label>
+            <select class="form-control" [(ngModel)]="itemAEditar.estado" name="estado">
+              <option value="">Seleccione estado</option>
+              <option value="Disponible">Disponible</option>
+              <option value="Prestada">Prestada</option>
+              <option value="Dañada">Dañada</option>
+            </select>
+          </div>
+          <div class="form-group mb-3">
+            <label>Proyecto</label>
+            <select class="form-control" [(ngModel)]="itemAEditar.proyecto_nombre" name="proyecto_nombre">
+              <option value="">Seleccione un proyecto</option>
+              @for (proyecto of proyectosDisponibles; track proyecto.id) {
+              <option [value]="proyecto.nombre">{{ proyecto.nombre }}</option>
+              }
+            </select>
+          </div>
+        </form>
         }
       </div>
       <div class="modal-footer">
@@ -123,7 +145,9 @@
 <div class="modal fade" id="modalEliminarInventario" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header"><h5 class="modal-title">Eliminar Inventario</h5></div>
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar Inventario</h5>
+      </div>
       <div class="modal-body">
         <p>Desea eliminar la herramienta <strong>{{itemSeleccionado?.herramienta}}</strong>?</p>
       </div>
@@ -134,4 +158,3 @@
     </div>
   </div>
 </div>
-

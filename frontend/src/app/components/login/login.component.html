@@ -1,5 +1,5 @@
 <div class="logo">
-  <img src="../../../../public/Logo.png" alt="Logo">
+  <img src="https://i.ibb.co/tMkTrv2q/Captura-de-pantalla-2025-09-08-234739.png" alt="Logo">
 </div>
 
 <div class="login-box">
@@ -7,15 +7,15 @@
   <form (ngSubmit)="onSubmit()">
     <div class="input-box">
       <i class='bx bx-user'></i>
-      <input type="text" id="correo" placeholder="CORREO" [(ngModel)]="credentials.correo" name="correo" required>
+      <input type="text" id="correo" placeholder="juan@example.com" [(ngModel)]="credentials.correo" name="correo" required>
     </div>
     <div class="input-box">
       <i class='bx bx-car-key'></i>
-      <input type="password" id="password" placeholder="CONTRASEÑA" [(ngModel)]="credentials.password" name="password" required>
+      <input type="password" id="password" placeholder="********" [(ngModel)]="credentials.password" name="password" required>
     </div>
     <div class="btns">
-      <button type="button" (click)="crearCuenta()">CREAR CUENTA</button>
-      <button type="submit">INGRESAR</button>
+      <button type="button" class="btn btn-primary" (click)="crearCuenta()">CREAR CUENTA</button>
+      <button type="submit" class="btn btn-secondary">INGRESAR</button>
     </div>
     @if (error) {
         <div style="color: red;">{{ error }}</div>

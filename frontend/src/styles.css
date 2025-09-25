@@ -91,25 +91,27 @@ button:hover {
 
 
 .tabla thead {
-  background-color: #574848;
-  color: white;
+  background-color: #ffffff;
+  color: #333333; /* texto oscuro */
+  border-bottom: 2px solid #ddd;
 }
 
 
 .tabla tbody tr {
-  background-color: #574848;
-  color: white;
+  background-color: #ffffff;
+  color: #333333;
+  border-bottom: 1px solid #ddd;
 }
 
 
 .tabla tbody tr:hover {
-  background-color: #6d5f5f;
+  background-color: #f5f5f5;
 }
 
 
 .tabla tbody tr.table-active {
-  background-color: #a08f8f !important;
-  color: #fff;
+  background-color: #e0e0e0 !important;
+  color: #000;
 }
 
 .tabla-box {

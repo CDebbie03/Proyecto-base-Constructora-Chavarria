@@ -10,6 +10,10 @@
       <li><a [routerLink]="['/inventario']" routerLinkActive="active">INVENTARIO</a></li>
     </ul>
   </nav>
+   <div class="logout-box">
+    <button (click)="cerrarSesion()">CERRAR SESIÓN</button>
+  </div>
+
   <div class="help-box">
     <a [routerLink]="['/ayuda']" routerLinkActive="active">AYUDA</a>
   </div>
