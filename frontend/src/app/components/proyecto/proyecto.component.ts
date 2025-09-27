@@ -13,13 +13,15 @@ import { NgxPaginationModule } from 'ngx-pagination';
 export class ProyectoComponent implements OnInit {
 
   page: number = 1;
-  itemsPerPage: number = 17;
+  itemsPerPage: number = 13;
 
   proyectos: ProyectoModel[] = [];
   originalProyectos: ProyectoModel[] = [];
   proyectoSeleccionado: ProyectoModel | null = null;
   proyectoAEditar: ProyectoModel | null = null;
-  nuevoProyecto: NuevoProyecto = { nombre: '', estado: '', descripcion: '', usuario_id: 0, comentario: '' };
+
+  nuevoProyecto: NuevoProyecto = { nombre: '', estado: '', descripcion: '' };
+
   filtroNombre: string = '';
 
   constructor(private proyectoService: ProyectoService) { }
@@ -40,15 +42,27 @@ export class ProyectoComponent implements OnInit {
   }
 
   eliminarProyecto() {
-    if (!this.proyectoSeleccionado) return;
-    this.proyectoService.deleteProyecto(this.proyectoSeleccionado.id)
-      .subscribe(() => this.cargarProyectos());
+  if (!this.proyectoSeleccionado) return;
 
-    const modalElement = document.getElementById('modalEliminar');
-    const modal = bootstrap.Modal.getInstance(modalElement);
-    if (modal) modal.hide();
-  }
-
+  this.proyectoService.deleteProyecto(this.proyectoSeleccionado.id)
+    .subscribe({
+      next: () => {
+        this.cargarProyectos();
+        const modalElement = document.getElementById('modalEliminar');
+        const modal = bootstrap.Modal.getInstance(modalElement);
+        if (modal) modal.hide();
+        alert('Proyecto eliminado con éxito');
+      },
+      error: (err) => {
+        console.error('Error al eliminar el proyecto:', err);
+        if (err.status === 409) {
+          alert('No se puede eliminar el proyecto porque tiene trabajadores o inventario asociados');
+        } else {
+          alert('Error al eliminar el proyecto. Intente de nuevo');
+        }
+      }
+    });
+}
   agregarProyecto(): void {
     this.proyectoService.addProyecto(this.nuevoProyecto).subscribe({
       next: () => {
@@ -56,7 +70,7 @@ export class ProyectoComponent implements OnInit {
         const modalElement = document.getElementById('modalNuevo');
         const modal = bootstrap.Modal.getInstance(modalElement);
         if (modal) modal.hide();
-        this.nuevoProyecto = { nombre: '', estado: '', descripcion: '', usuario_id: 0, comentario: '' };
+        this.nuevoProyecto = { nombre: '', estado: '', descripcion: '' };
       }
     });
   }

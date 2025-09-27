@@ -8,7 +8,7 @@
     <i class='bx bx-plus'></i> NUEVO
   </button>
 
-  <div class="input-group p-4">
+  <div class="input-group mb-4">
     <span class="input-group-text"><i class='bx bx-search'></i></span>
     <input
       type="text"
@@ -22,7 +22,7 @@
   <table class="tabla table-bordered">
     <thead>
       <tr>
-        <th>#</th>
+        <th>id</th>
         <th>Herramienta</th>
         <th>Estado</th>
         <th>Proyecto</th>
@@ -35,7 +35,7 @@
           <td>{{ item.id }}</td>
           <td>{{ item.herramienta }}</td>
           <td>{{ item.estado }}</td>
-          <td>{{ item.proyecto_id }}</td>
+          <td>{{ item.proyecto_nombre }}</td>
           <td>
             <div>
               <button class="btn btn-danger mx-2" data-bs-toggle="modal" data-bs-target="#modalEliminarInventario" (click)="seleccionarItem(item)">
@@ -50,10 +50,14 @@
       }
     </tbody>
   </table>
-  <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+  <div class="d-flex justify-content-center mt-4">
+    <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+  </div>
+  
 </div>
 
 <!-- Modal Nuevo -->
+
 <div class="modal fade" id="modalNuevoInventario" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -77,7 +81,12 @@
           </div>
           <div class="form-group mb-3">
             <label>Proyecto</label>
-            <input type="number" class="form-control" [(ngModel)]="nuevoItem.proyecto_id" name="proyecto_id">
+            <select class="form-control" [(ngModel)]="nuevoItem.proyecto_nombre" name="proyecto_nombre">
+              <option value="">Seleccione un proyecto</option>
+              @for (proyecto of proyectosDisponibles; track proyecto.id) {
+              <option [value]="proyecto.nombre">{{ proyecto.nombre }}</option>
+              }
+            </select>
           </div>
         </form>
       </div>
@@ -98,21 +107,30 @@
       </div>
       <div class="modal-body">
         @if(itemAEditar){
-          <form>
-            <div class="form-group mb-3">
-              <label>Herramienta</label>
-              <input type="text" class="form-control" [(ngModel)]="itemAEditar.herramienta" name="herramienta">
-            </div>
-            <div class="form-group mb-3">
-              <label>Estado</label>
-              <select class="form-control" [(ngModel)]="itemAEditar.estado" name="estado">
-                <option value="">Seleccione estado</option>
-                <option value="Disponible">Disponible</option>
-                <option value="Prestada">Prestada</option>
-                <option value="Dañada">Dañada</option>
-              </select>
-            </div>
-          </form>
+        <form>
+          <div class="form-group mb-3">
+            <label>Herramienta</label>
+            <input type="text" class="form-control" [(ngModel)]="itemAEditar.herramienta" name="herramienta">
+          </div>
+          <div class="form-group mb-3">
+            <label>Estado</label>
+            <select class="form-control" [(ngModel)]="itemAEditar.estado" name="estado">
+              <option value="">Seleccione estado</option>
+              <option value="Disponible">Disponible</option>
+              <option value="Prestada">Prestada</option>
+              <option value="Dañada">Dañada</option>
+            </select>
+          </div>
+          <div class="form-group mb-3">
+            <label>Proyecto</label>
+            <select class="form-control" [(ngModel)]="itemAEditar.proyecto_nombre" name="proyecto_nombre">
+              <option value="">Seleccione un proyecto</option>
+              @for (proyecto of proyectosDisponibles; track proyecto.id) {
+              <option [value]="proyecto.nombre">{{ proyecto.nombre }}</option>
+              }
+            </select>
+          </div>
+        </form>
         }
       </div>
       <div class="modal-footer">

@@ -8,7 +8,7 @@
     <i class='bx bx-plus'></i> NUEVO
   </button>
 
-  <div class="input-group p-4">
+  <div class="input-group mb-4">
     <span class="input-group-text"><i class='bx bx-search'></i></span>
     <input
       type="text"
@@ -24,11 +24,10 @@
 
     <thead>
     <tr>
-      <th>#</th>
+      <th>id</th>
       <th>Nombre</th>
       <th>Estado</th>
       <th>Descripción</th>
-      <th>Comentario</th>
       <th>Acciones</th>
     </tr>
     </thead>
@@ -40,7 +39,6 @@
           <td>{{ dato.nombre }}</td>
           <td>{{ dato.estado }}</td>
           <td>{{ dato.descripcion }}</td>
-          <td>{{ dato.comentario }}</td>
           <td>
             <div class="">
               <button class="btn btn-danger mx-2" data-bs-toggle="modal" data-bs-target="#modalEliminar" (click)="seleccionarProyecto(dato)" >
@@ -55,7 +53,10 @@
       }
     </tbody>
   </table>
-  <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+  <div class="d-flex justify-content-center mt-4">
+    <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+  </div>
+  
 </div>
 
 
@@ -76,19 +77,15 @@
           </div>
           <div class="form-group mb-3">
             <label>Estado</label>
-            <input type="text" class="form-control" placeholder="Estado" [(ngModel)]="nuevoProyecto.estado" name="estado">
+            <select class="form-control" [(ngModel)]="nuevoProyecto.estado" name="estado">
+              <option value="Pendiente">Pendiente</option>
+              <option value="En progreso">En progreso</option>
+              <option value="Finalizado">Finalizado</option>
+            </select>
           </div>
           <div class="form-group mb-3">
             <label>Descripción</label>
             <input type="text" class="form-control" placeholder="Descripción" [(ngModel)]="nuevoProyecto.descripcion" name="descripcion">
-          </div>
-          <div class="form-group mb-3">
-            <label>Usuario ID</label>
-            <input type="number" class="form-control" placeholder="Usuario ID" [(ngModel)]="nuevoProyecto.usuario_id" name="usuario_id">
-          </div>
-          <div class="form-group mb-3">
-            <label>Comentario</label>
-            <input type="text" class="form-control" placeholder="Comentario" [(ngModel)]="nuevoProyecto.comentario" name="comentario">
           </div>
         </form>
 
@@ -119,15 +116,15 @@
             </div>
             <div class="form-group mb-3">
               <label>Estado</label>
-              <input type="text" class="form-control" [(ngModel)]="proyectoAEditar.estado" name="estado">
+              <select class="form-control" [(ngModel)]="proyectoAEditar.estado" name="estado">
+                <option value="Pendiente">Pendiente</option>
+                <option value="En progreso">En progreso</option>
+                <option value="Finalizado">Finalizado</option>
+              </select>
             </div>
             <div class="form-group mb-3">
               <label>Descripción</label>
               <input type="text" class="form-control" [(ngModel)]="proyectoAEditar.descripcion" name="descripcion">
-            </div>
-            <div class="form-group mb-3">
-              <label>Comentario</label>
-              <input type="text" class="form-control" [(ngModel)]="proyectoAEditar.comentario" name="comentario">
             </div>
           </form>
         }
