@@ -32,10 +32,13 @@
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
+<<<<<<< HEAD
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
 
+=======
+>>>>>>> origin/Rommel
             ]
           },
           "configurations": {
@@ -102,7 +105,10 @@
   },
   "cli": {
     "analytics": "b32199a1-4a4f-451f-b90d-1cc07199a782"
+<<<<<<< HEAD
 
     "analytics":false
+=======
+>>>>>>> origin/Rommel
   }
 }

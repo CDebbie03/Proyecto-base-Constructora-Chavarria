@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 import { Routes } from '@angular/router';
 import {TrabajadorComponent} from './components/trabajador/trabajador.component';
@@ -9,6 +10,14 @@ import { AyudaComponent } from './components/ayuda/ayuda.component';
 import { ProyectoComponent} from './components/proyecto/proyecto.component';
 import { Inicio } from './components/inicio/inicio';
 
+=======
+import { Routes } from '@angular/router';
+import {TrabajadorComponent} from './components/trabajador/trabajador.component';
+import {PruebaComponent} from './components/prueba/prueba.component';
+import {LoginComponent} from './components/login/login.component';
+import { InventarioComponent } from './components/inventario/inventario.component';
+
+>>>>>>> origin/Rommel
 export const routes: Routes = [
 
   {
@@ -24,6 +33,7 @@ export const routes: Routes = [
     path: '',component:LoginComponent
   },
   {
+<<<<<<< HEAD
     path: 'registro',component:RegistroComponent
   },
   {
@@ -38,10 +48,15 @@ export const routes: Routes = [
   {
     path: '',
     redirectTo: '/inicio',
+=======
+    path: '',
+    redirectTo: '/inventario',
+>>>>>>> origin/Rommel
     pathMatch: 'full'
   }
 
 ];
+<<<<<<< HEAD
 
 import { Routes } from "@angular/router";
 import { ProyectoComponent } from "./components/proyectos/proyecto.component";
@@ -52,3 +67,5 @@ export const routes: Routes =[
     path: 'proyectos', component: ProyectoComponent
   }
 ];
+=======
+>>>>>>> origin/Rommel

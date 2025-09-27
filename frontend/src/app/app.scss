@@ -1,11 +1,16 @@
 .main-layout {
   display: flex;
+
   height: 101vh;
+
+  height: 100vh;
+
 }
 
 .content-view {
   flex-grow: 1;
   padding: 20px;
+
   margin-bottom: auto;
 }
 
@@ -41,4 +46,5 @@
 ::ng-deep .ngx-pagination li a:hover:not(.current) {
   background-color: #f1f1f1 !important;
   transform: translateY(-2px);
+
 }

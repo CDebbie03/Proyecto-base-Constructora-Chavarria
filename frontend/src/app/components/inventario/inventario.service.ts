@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 import { InventarioModel, NuevoInventario } from './inventario.model';
+
+import { InventarioModel } from './inventario.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +19,11 @@ export class InventarioService {
     return this.http.get<InventarioModel[]>(this.apiUrl);
   }
 
+
   addInventario(item: NuevoInventario): Observable<InventarioModel> {
+
+  addInventario(item: InventarioModel): Observable<InventarioModel> {
+
     return this.http.post<InventarioModel>(this.apiUrl, item);
   }
 

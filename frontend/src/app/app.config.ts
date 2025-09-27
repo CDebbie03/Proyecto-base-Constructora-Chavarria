@@ -1,7 +1,10 @@
 import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
+<<<<<<< HEAD
 import { provideHttpClient, withInterceptorsFromDi, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+=======
+>>>>>>> origin/Rommel
 import { provideHttpClient } from '@angular/common/http';
 import { routes } from './app.routes';
 import { TokenInterceptor } from './token-interceptor';

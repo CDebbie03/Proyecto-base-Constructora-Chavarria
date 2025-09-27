@@ -91,6 +91,7 @@ button:hover {
 
 
 .tabla thead {
+<<<<<<< HEAD
 
   background-color: #ffffff;
   color: #333333; /* texto oscuro */
@@ -99,29 +100,42 @@ button:hover {
   background-color: #574848;
   color: white;
 
+=======
+  background-color: #574848;
+  color: white;
+>>>>>>> origin/Rommel
 }
 
 
 .tabla tbody tr {
+<<<<<<< HEAD
   background-color: #ffffff;
   color: #333333;
   border-bottom: 1px solid #ddd;
+=======
+>>>>>>> origin/Rommel
   background-color: #574848;
   color: white;
 }
 
 
 .tabla tbody tr:hover {
+<<<<<<< HEAD
   background-color: #f5f5f5;
 
+=======
+>>>>>>> origin/Rommel
   background-color: #6d5f5f;
 }
 
 
 .tabla tbody tr.table-active {
+<<<<<<< HEAD
 
   background-color: #e0e0e0 !important;
   color: #000;
+=======
+>>>>>>> origin/Rommel
   background-color: #a08f8f !important;
   color: #fff;
 }
@@ -140,4 +154,7 @@ button:hover {
   color: #d9d9d9;
   margin-bottom: 20px;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/Rommel

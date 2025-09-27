@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 import { TrabajadorModel , NuevoTrabajador} from './trabajador.model';
+
+import { TrabajadorModel } from './trabajador.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +23,13 @@ export class TrabajadorService {
     // return this.http.get<TrabajadorModel[]>(`${this.apiUrl}?_limit=10`)
   }
 
+
   addTrabajador(trabajador: NuevoTrabajador): Observable<NuevoTrabajador> {
     return this.http.post<NuevoTrabajador>(this.apiUrl, trabajador);
+
+  addTrabajador(trabajador: TrabajadorModel): Observable<TrabajadorModel> {
+    return this.http.post<TrabajadorModel>(this.apiUrl, trabajador);
+
   }
 
   updateTrabajador(id: number, trabajador: TrabajadorModel): Observable<TrabajadorModel> {

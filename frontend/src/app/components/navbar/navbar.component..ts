@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+
+import { RouterLink, RouterLinkActive } from '@angular/router';
+
 
 @Component({
   selector: 'app-navbar',
@@ -10,6 +14,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './navbar.component.scss'
 })
 export class Navbar {
+
   constructor(private router: Router, private authService: AuthService) { }
 
   cerrarSesion(): void {
@@ -17,4 +22,7 @@ export class Navbar {
 
     this.router.navigate(['/']);
   }
+
+
+
 }

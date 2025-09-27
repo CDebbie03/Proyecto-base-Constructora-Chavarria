@@ -25,7 +25,10 @@
 
     <thead>
     <tr>
+
       <th>id</th>
+
+      <th>#</th>
       <th>Nombre</th>
       <th>Horas Trabajadas</th>
       <th>Proyecto</th>
@@ -35,11 +38,16 @@
     </thead>
 
     <tbody>
+
       @for (dato of trabajadores | paginate: {itemsPerPage: itemsPerPage, currentPage: page }; track dato.id){
+
+      @for (dato of trabajadores; track dato.id){
+
         <tr>
           <td>{{ dato.id }}</td>
           <td>{{ dato.nombre }}</td>
           <td>{{ dato.horas_trabajadas }}</td>
+
           <td>{{ dato.proyecto_nombre || dato.proyecto_id }}</td>
           <td>{{ dato.comentario }}</td>
           <td>
@@ -48,11 +56,19 @@
   <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEditar" (click)="seleccionarTrabajadorParaEditar(dato)"><i class='bxr  bx-edit'  ></i> </button>
 </div>
 
+          <td>{{ dato.proyecto_id }}</td>
+          <td>{{ dato.comentario }}</td>
+          <td>
+<!--            <button class="btn btn-danger"  (click)="eliminarTrabajador(dato.id)"><i class='bxr  bx-trash'  ></i> </button>-->
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminar" (click)="seleccionarTrabajador(dato)" ><i class='bxr  bx-trash'  ></i> </button>
+            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEditar" (click)="seleccionarTrabajadorParaEditar(dato)"><i class='bxr  bx-edit'  ></i> </button>
+
           </td>
         </tr>
       }
     </tbody>
   </table>
+
   <div class="d-flex justify-content-center mt-4">
     <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
   </div>
@@ -72,6 +88,7 @@
       <div class="modal-body">
 
         <form>
+
           <div class="form-group mb-3">
             <label for="formNombre">Nombre</label>
             <input type="text" class="form-control" id="formNombre" placeholder="Nombre" [(ngModel)]="nuevoTrabajador.nombre" name="nombre">
@@ -90,12 +107,28 @@
             </select>
           </div>
           <div class="form-group mb-3">
+          <div class="form-group">
+            <label for="formNombre">Nombre</label>
+            <input type="text" class="form-control" id="formNombre" placeholder="Nombre" [(ngModel)]="nuevoTrabajador.nombre" name="nombre">
+          </div>
+          <div class="form-group">
+            <label for="formHoras">Horas Trabajadas</label>
+            <input type="number" class="form-control" id="formHoras" placeholder="Horas" [(ngModel)]="nuevoTrabajador.horas_trabajadas" name="horas">
+          </div>
+          <div class="form-group">
+            <label for="formProyecto">Proyecto</label>
+            <input type="number" class="form-control" id="formProyecto" placeholder="Proyecto" [(ngModel)]="nuevoTrabajador.proyecto_id" name="proyecto">
+          </div>
+          <div class="form-group">
+
             <label for="formComentario">Comentario</label>
             <input type="text" class="form-control" id="formComentario" placeholder="Comentario" [(ngModel)]="nuevoTrabajador.comentario" name="comentario">
           </div>
         </form>
 
       </div>
+
+
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -105,6 +138,9 @@
   </div>
 </div>
 
+
+
+
 <!-- Modal Editar Trabajador -->
 <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -113,6 +149,7 @@
         <h5 class="modal-title" id="exampleModalLabel">Editar Trabajador</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+
 
       <div class="modal-body">
         @if (trabajadorAEditar) {
@@ -146,6 +183,30 @@
         }
       </div>
 
+
+
+      <div class="modal-body">
+        @if (trabajadorAEditar) {
+          <form>
+            <div class="form-group">
+              <label for="editNombre">Nombre</label>
+              <input type="text" class="form-control" id="editNombre" placeholder="Nombre" [(ngModel)]="trabajadorAEditar.nombre" name="nombre">
+            </div>
+            <div class="form-group">
+              <label for="editHoras">Horas Trabajadas</label>
+              <input type="number" class="form-control" id="editHoras" placeholder="Horas" [(ngModel)]="trabajadorAEditar.horas_trabajadas" name="horas">
+            </div>
+            <div class="form-group">
+              <label for="editComentario">Comentario</label>
+              <input type="text" class="form-control" id="editComentario" placeholder="Comentario" [(ngModel)]="trabajadorAEditar.comentario" name="comentario">
+            </div>
+          </form>
+        }
+      </div>
+
+
+
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" (click)="actualizarTrabajador()">Guardar Cambios</button>
@@ -153,6 +214,9 @@
     </div>
   </div>
 </div>
+
+
+
 
 <!-- Modal Eliminar Trabajador -->
 <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -166,7 +230,11 @@
         <p>Desea Eliminar al Trabajador <strong>{{trabajadorSeleccionado?.nombre}}</strong> ? </p>
       </div>
       <div class="modal-footer">
+
         <button type="button" class="btn btn-danger" (click)="eliminarTrabajador()" >Confirmar</button>
+
+        <button type="button" class="btn btn-primary" (click)="eliminarTrabajador()" >Confirmar</button>
+
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
       </div>
     </div>
