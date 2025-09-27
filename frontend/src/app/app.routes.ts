@@ -1,3 +1,4 @@
+
 import { Routes } from '@angular/router';
 import {TrabajadorComponent} from './components/trabajador/trabajador.component';
 import {PruebaComponent} from './components/prueba/prueba.component';
@@ -40,4 +41,14 @@ export const routes: Routes = [
     pathMatch: 'full'
   }
 
+];
+
+import { Routes } from "@angular/router";
+import { ProyectoComponent } from "./components/proyectos/proyecto.component";
+import { Component } from "@angular/core";
+
+export const routes: Routes =[
+  {
+    path: 'proyectos', component: ProyectoComponent
+  }
 ];
